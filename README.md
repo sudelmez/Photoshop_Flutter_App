@@ -5,6 +5,7 @@ A new Flutter project.
 This app was created to study Python libraries which are Flask and OpenCv. It is a basic program that uploads an image we choose to the api that we created with Flask. Then, the image is converted to grey and showed on the app screen!
 
 Surely, it can be updated very well:)
+the python file is here ----> https://github.com/sudelmez/Photoshop_Python_file.git
 
 -----------------------------------------
 
