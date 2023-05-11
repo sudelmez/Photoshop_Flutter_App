@@ -2,15 +2,8 @@
 
 A new Flutter project.
 
-## Getting Started
+This app was created to study Python libraries which are Flask and OpenCv. It is a basic program that uploads an image we choose to the api that we created with Flask. Then, the image is converted to grey and showed on the app screen!
 
-This project is a starting point for a Flutter application.
+Surely, it can be updated very well:)
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+file:///Users/sudeolmez/Desktop/Ekran%20Resmi%202023-05-11%2017.41.45.png
