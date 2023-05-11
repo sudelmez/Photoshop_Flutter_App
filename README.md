@@ -7,7 +7,11 @@ This app was created to study Python libraries which are Flask and OpenCv. It is
 Surely, it can be updated very well:)
 the python file is here ----> https://github.com/sudelmez/Photoshop_Python_file.git
 
+
+
 -----------------------------------------
+
+
 
 <img width="785" alt="Ekran Resmi 2023-05-11 17 41 45" src="https://github.com/sudelmez/Photoshop_Flutter_App/assets/98457237/3b673793-0b89-4042-ac4c-a969128893ed">
 
