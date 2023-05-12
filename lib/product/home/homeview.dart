@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart' as http;
@@ -12,6 +13,11 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> with HomeModel {
+
+  Future<http.StreamedResponse>? streamedResponse;
+  http.StreamedResponse? streamedResponse2;
+  
+  
   getImage() async {
     final pickedImage =
         await ImagePicker().getImage(source: ImageSource.gallery);
@@ -19,7 +25,7 @@ class _HomeViewState extends State<HomeView> with HomeModel {
     setState(() {});
   }
 
-  uploadImage() {
+  Future<Uint8List>? uploadImage() async {
     final request = http.MultipartRequest("POST", Uri.parse(url));
     final headers = {'Content-type': 'multipart/form-data'};
     (selectedImage != null)
@@ -30,15 +36,27 @@ class _HomeViewState extends State<HomeView> with HomeModel {
             filename: selectedImage!.path.split('/').last))
         : null;
     request.headers.addAll(headers);
-    final response = request.send();
-    setState(() {});
+    streamedResponse = request.send();
+
+    streamedResponse2= await streamedResponse;
+    return streamedResponse2!.stream.toBytes();
   }
 
-  getNewImage() async {
-    final getresponse = await http.get(Uri.parse(url));
-    image = getresponse.bodyBytes;
-    setState(() {});
-  }
+
+  // storeImage() {
+  //   final request = http.MultipartRequest("POST", Uri.parse(saveurl));
+  //   final headers = {'Content-type': 'multipart/form-data'};
+  //   (myimage != null)
+  //       ? request.files.add(http.MultipartFile(
+  //           'image',
+  //           selectedImage!.readAsBytes().asStream(),
+  //           selectedImage!.lengthSync(),
+  //           filename: selectedImage!.path.split('/').last))
+  //       : null;
+  //   request.headers.addAll(headers);
+  //   final response = request.send();
+  //   setState(() {});
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -56,23 +74,20 @@ class _HomeViewState extends State<HomeView> with HomeModel {
               selectedImage == null
                   ? const Text("Click to upload the image")
                   : Image.file(selectedImage!),
+                  (myimage!= null) ?  Image.memory(myimage?? Uint8List(256)) : const SizedBox(),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   ElevatedButton(
-                      onPressed: uploadImage,
+                      onPressed: (selectedImage!=null) ? () async {
+                        myimage=await uploadImage();
+                        setState(() {});
+                      } : null,
                       child: const Text("upload photo")),
-                  ElevatedButton(
-                      onPressed: getNewImage, child: const Text("edit photo")),
+                  // ElevatedButton(
+                  //     onPressed: (myimage!=null) ? () {storeImage;} : null, child: const Text("store photo")),
                 ],
               ),
-              (image != null)
-                  ? SizedBox(
-                      width: 250,
-                      height: 250,
-                      child: Image.network("http://10.0.2.2:5000/datas"),
-                    )
-                  : const SizedBox()
             ],
           ),
         ),
@@ -80,3 +95,4 @@ class _HomeViewState extends State<HomeView> with HomeModel {
     );
   }
 }
+
